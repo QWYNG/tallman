@@ -1,47 +1,15 @@
-import React, { useEffect, useState } from 'react'
-
-// myEncryptedAccountIdは公開されてるので特に秘匿ではない
-const myEncryptedAccountId = 'eouFLBesHZCWzbab9ygwRQjqcUATAJnM0QfXeN5rhtPnYw'
-const RiotApiProxyEndPoint = '  https://hjdkbpkvcl.execute-api.us-east-2.amazonaws.com/default/apiProxyWithGO'
-
-export interface RankedStatus {
-  leagueId: string
-  queueType: string
-  tier: string
-  rank: string
-  summonerId: string
-  summonerName: string
-  leaguePoints: number
-  wins: number
-  losses: number
-  veteran: boolean
-  inactive: boolean
-  freshBlood: boolean
-  hotStreak: boolean
-}
-
-function fetchThroughProxy(path: string): Promise<Response> {
-  return fetch(`${RiotApiProxyEndPoint}?path=${path}`)
-}
-
-function fetchMyRankStatus(): Promise<RankedStatus> {
-  return fetchThroughProxy(`league/v4/entries/by-summoner/${myEncryptedAccountId}`)
-    .then(response => response.json())
-    .then(json => json[0] as RankedStatus)
-}
+import React from 'react'
+import useRankedStatus from '../hooks/useRankedStatus'
 
 const RankCard: React.FC = () => {
-  const [rankedStatus, setRankedStatus] = useState<RankedStatus | undefined>(undefined)
+  const [rankedStatus, isLoading] = useRankedStatus()
 
-  useEffect(() => {
-    fetchMyRankStatus().then(fetchedStatus => {
-      setRankedStatus(fetchedStatus)
-    })
-  }, [])
-
+  if (isLoading) {
+    return <div> now Loading...</div>
+  }
   return (
     <div>
-      <p>{rankedStatus?.summonerName}のLOLソロQランク!</p>
+      <p>{rankedStatus?.summonerName}'s LOL ranked status</p>
       <p>
         {rankedStatus?.tier} {rankedStatus?.rank} {rankedStatus?.leaguePoints}LP
       </p>
