@@ -32,10 +32,9 @@ function fetchMyRankStatus(): Promise<RankedStatus> {
 
 function useRankedStatus(): [RankedStatus | undefined, boolean] {
   const [rankedStatus, setRankedStatus] = useState<RankedStatus | undefined>(undefined)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    setIsLoading(true)
     fetchMyRankStatus().then(fetchedStatus => {
       setRankedStatus(fetchedStatus)
       setIsLoading(false)
