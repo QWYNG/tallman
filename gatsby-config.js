@@ -30,19 +30,6 @@ module.exports = {
               wrapperStyle: 'margin-bottom: 1rem'
             }
           },
-          {
-            resolve: `gatsby-remark-twitter-cards`,
-            options: {
-              title: 'tallman', // website title
-              separator: '|', // default
-              author: 'QWYNG',
-              background: '#8a4baf',
-              fontColor: '#ffffff',
-              titleFontSize: 96,
-              subtitleFontSize: 60,
-              fontStyle: 'monospace',
-            }
-          },
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
