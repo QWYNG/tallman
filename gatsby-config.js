@@ -1,11 +1,9 @@
-'use strict'
-
 module.exports = {
   siteMetadata: {
     title: 'とるめんろぐ',
     description: 'とるめんのミニブログ',
     keywords: 'something',
-    siteUrl: 'https://ecstatic-bardeen-39a0f9.netlify.app',
+    siteUrl: 'https://tallmanlog.netlify.app',
     author: {
       name: 'QWYNG',
       url: 'https://twitter.com/qwyngg',

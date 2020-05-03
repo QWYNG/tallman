@@ -1,6 +1,5 @@
-import React from "react"
-import { graphql, StaticQuery } from 'gatsby'
-import { Link } from 'gatsby'
+import React from 'react'
+import { graphql, StaticQuery, Link } from 'gatsby'
 
 interface ArticlesProps {
   allMarkdownRemark: {
@@ -37,22 +36,19 @@ const Articles: React.FC = () => (
         }
       }
     `}
-
-  render={(data: ArticlesProps) => (
-    <div>
-      <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
-      {data.allMarkdownRemark.nodes.map(article => (
+    render={(data: ArticlesProps) => (
+      <div>
+        <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
+        {data.allMarkdownRemark.nodes.map(article => (
           <div key={article.fields.slug}>
             <h3>
-              <Link to={`/${article.fields.slug}`}>
-                {article.frontmatter.title}
-              </Link>
+              <Link to={`/${article.fields.slug}`}>{article.frontmatter.title}</Link>
             </h3>
             <p>{article.excerpt}</p>
           </div>
         ))}
-    </div>
-  )}
+      </div>
+    )}
   />
 )
 
