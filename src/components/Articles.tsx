@@ -14,6 +14,7 @@ interface Article {
   }
   frontmatter: {
     title: string
+    date: string
   }
   excerpt: string
 }
@@ -22,7 +23,7 @@ const Articles: React.FC = () => (
   <StaticQuery
     query={graphql`
       query ArticlesQuery {
-        allMarkdownRemark {
+        allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
           totalCount
           nodes {
             fields {
@@ -30,6 +31,7 @@ const Articles: React.FC = () => (
             }
             frontmatter {
               title
+              date
             }
             excerpt
           }
@@ -38,9 +40,9 @@ const Articles: React.FC = () => (
     `}
     render={(data: ArticlesProps) => (
       <div>
-        <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
         {data.allMarkdownRemark.nodes.map(article => (
           <div key={article.fields.slug}>
+            <h4>{article.frontmatter.date}</h4>
             <h3>
               <Link to={`/${article.fields.slug}`}>{article.frontmatter.title}</Link>
             </h3>
